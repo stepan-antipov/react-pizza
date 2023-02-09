@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import './scss/app.scss';
+import Header from './components/Header';
+
+import Home from './pages/Home';
+import Cart from './pages/Cart';
+import EmptyCart from './pages/EmptyCart';
+import NotFound from './pages/NotFound';
+
+export const SearchContext = React.createContext();
 
 function App() {
+  const [searchValue, setSearchValue] = React.useState('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <SearchContext.Provider value={{searchValue, setSearchValue}}>
+      <Header  />
+      <div className="content">
+
+        
+
+        <Routes>
+          <Route path='/' element={<Home searchValue={searchValue}/>} errorElement={<NotFound/>}/>
+          <Route path='cart' element={<Cart/>}/>
+          <Route path='empty-cart' element={<EmptyCart/>}/>
+          <Route path='*' element={<NotFound/>}/>
+        </Routes>
+      </div>
+      </SearchContext.Provider>
     </div>
   );
 }
 
 export default App;
+
