@@ -1,9 +1,31 @@
 import React from 'react';
 import { SearchContext } from '../../App';
+import debounce from 'lodash/debounce';
+
 
 function Search() {
-  
+  const [value, setValue] = React.useState('');
+
   const {searchValue, setSearchValue} = React.useContext(SearchContext);
+
+  const inputRef = React.useRef();
+    
+
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 300), []);
+
+  const onChangeInput = event => {
+    setValue(event.target.value)
+    updateSearchValue(event.target.value)
+  }
+
+  const onClickClose = () => {
+    setValue('')
+    setSearchValue('')
+    inputRef.current.focus();
+  }
 
   return (
     <div className='input-block'>
@@ -12,11 +34,12 @@ function Search() {
       </button>
       <input 
       type='text' 
-      value={searchValue}
-      onChange={(event) => setSearchValue(event.target.value)}
+      ref={inputRef}
+      value={value}
+      onChange={(event) => onChangeInput(event)}
       placeholder='Поиск пиццы...'/>
-      { searchValue && (
-        <img onClick={() => setSearchValue('')}  src="/img/close.svg" alt='close'></img>
+      { value && (
+        <img onClick={() => onClickClose()}  src="/img/close.svg" alt='close'></img>
       )}
     </div>
   )

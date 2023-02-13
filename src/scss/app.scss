@@ -56,7 +56,7 @@ button {
 }
 
 .not-found {
-  icon {
+  .icon {
     font-size: 32px;
     margin-bottom: 10px;
   }
@@ -179,6 +179,9 @@ b {
   flex-direction: column;
   .cart__item-info{
     margin-left: 35px;
+    h3 {
+      white-space: nowrap;
+    }
   }
 }
 
@@ -263,6 +266,7 @@ b {
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
+    justify-content: space-between;
 
     &-img {
       display: flex;
@@ -441,7 +445,7 @@ b {
       color: #777777;
     }
 
-    icon {
+    .icon {
       position: relative;
       top: 2px;
     }
@@ -528,7 +532,7 @@ b {
     h2 {
       font-size: 19px;
     }
-    icon {
+    .icon {
       font-size: 19px;
     }
     p {
